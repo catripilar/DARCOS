@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="socketio.js"></script>
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="csss/index.css">
+    <title>Darcos</title>
+</head>
+<body>
+    <section>
+        <div class="expage" id="ex">
+            <div class="exmenu" style="right: 0;background: #f60f20;" onclick="exM('')"><div class="exmimg1"></div></div>
+            <div class="exnav">
+                <ul>
+                    <li>
+                        <input type="text" class="extext" id="SER" placeholder="SERVIDOR(opcional)">
+                        <input type="text" class="extext" id="IDM" placeholder="ID MAQUINA">
+                        <button class="btc" onclick="conec()">Conectar</button>
+                    </li>
+                    <p id="robot"></p>
+                </ul>
+            </div>
+            <div class="exmenu" style="left: 0;background: #0053a0;" onclick="exM()"><div class="exmimg1"></div></div>
+            <div class="exnav">
+                <ul>
+                    <li>
+                        <input type="text" class="extext" id="IDM" placeholder="ID MAQUINA">
+                        <button class="btc" onclick="conec()">Conectar</button>
+                    </li>
+                </ul>
+            </div>
+                <div class="controles" id="control1"><div class="joys es" id="item1"></div></div>
+                <img id="image" style="width: 200px;height: 200px;" draggable="false" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCAAwADADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/CQBk1DeXlnZWsl7e3McMMMZeaaVwqogGSxJ6ADkntiq/iXX9J8KeHNQ8U6/dC3sdNs5bu9nYZEcMaF3b8FBNfy8/wDBUH/g5S/bB/4KA+H/ABJ8DPhRa2vwx+EevRy2dzpelSGTWdb01uGivrzICRzKD5kECopSRoXeZCxcA/Z5f+Dl/wD4Ixr8TNS+G19+1s9sdNvDar4gfwbqz6TeShir+Tdx2zIY1YH9822Jsbkd1IYl5/wcx/8ABGC3+Iun/D22/a3a6+3Xf2aXxBD4N1YaTZOeFMt09qqBGOB5q741zl2RQWH8o6rsUKq7QoxhVwB+VG3cNpGQRjjvQB/dNp2o6fqljDqem30NzbXMKy29xbyB45Y2G5WVhwykEEEcEc1YzX8sf/BMj/g5O/bM/wCCevhvw/8ABP4kwWfxO+E+gpHa2+i63I0eraNpy8CGxvQT+7iXAjgnWRFRBEjRIFKf1FeDfFGi+OPCOl+NfDdwZtP1jTob6xlZdpeGZBIjY7ZVgaAPkf8A4Luft8+HP2Af+CdPjPxpNBHeeJvGtpN4S8D6XITibUL2CVTM+MnyoIRLO3ZvLWPIaRTX8yv/AATB1b9hTwh+1jo2of8ABRnw+uq/Ci28P6kuoWMtpfzebffZ/wDQxt0/99nzQPmHyjqxAr+lz/gvp/wT/wBK/b//AOCdHi3w1a3Udn4s8BRSeL/Bd9IoKfbLOCQy2sn/AEzuLczQk5Gx2jkIby9rfySreRvZLfRozK0PmKu3nG3IGPX8aAP2I/sr/gjR4K/YG/Ze/bp+Nv8AwSv8C6Ho3xq+I2saF48Sy8VeI7lfDunWF/f2z3Nskdw0txJssw+zacliAOmKfwG/ZI/YH0P9h/x9/wAFJPgP/wAE4pP2q4NS/aK1zQdP8DWOoaki+B/B8V1J9mAsFZ5pLhrX7NMHljaWNb6EsURHL81+3X8FfDmm/wDBv3+z38FdI/av+B+veJPg7q2ueKvGGh6D8TIbm+lh1W/u57a1s7cRiS4uFj1FfOVhGI2hkALjmuI/4Jg/s+PrX7Oel/Hb/gnd/wAFddN+B/7Qlt4ikt/il4L+JHjK30XR7jSY2b7Jc28Xkyf2gqqxcmYSpmWWMCFkJkAPkv8A4KHwfsI3f7UXiJ/+Cc9z4iX4T31rC2m6b4mtrmOfS7oqVubSNromd4kYZRpSXG4qSdoNf03f8ECP2/dD/b5/4JzeENbeOO18WfD+1h8IeNtPRgQt5ZwRrFcp0Pl3FuYphx8rNJHlvLLH8A/+DhT9or9lz9ov/golqnxK/Zl8Q6H4htbLwbp+n+OPGfhe18rT/EmvW4lF1dwYyJVCeTF5ql1fyvldwAx/fD/g31/4J96Z+wN/wTo8LWeoyC68YfEiGHxh42vFxtS4uoEMFpH/ALEFt5UeSSWkEr8BwigH2p4r8OaV4x8Lal4R163M1jqthNZ3sStgvDKhRxntlWNfyw/8FL/+Dcv9t/8A4J3aJr3xe8NafZ/Ej4T6K0k8nifw0G+3aVYAnE1/YsN0SogzJLE0sSAF2ZF3Ff6rjzwaq6rpem6xps+i6tp0F3Z3kLw3drdQiSOeJhtZHVgQykEgggggnNAH8K6WloHEsVtFuzuVljGfrTp7a3uV23NssgXnEi7v5iv6nLf/AINav+COH/C0NW+I2qfAvxHeWGqOXh8Ft481G30jTmOCTbpbSxThcgny3meNdxVVChVDdS/4NZf+CN8/xK0n4g6X8DPEmn2GmSB7jwfD4+1GfSdSYEkfaFuZZZiuSMpHNGhCgFSCwYA/Fz/gmt/wbq/txf8ABRrw/ovxX1Gxsfhv8KdZdHj8XeJtxu9Ssiw3zafYr886spJSSRoYn+8rsvJ/ql8E+E9G8BeDNJ8C+HY3TT9F0yCwsVkbcywwxrGgJ7naozVjRNH0jQdJt9A0LSraxsbG3jt7Kxs4Fiht4UUKkaIoAVFUBQoAAAAAAFXAABgUAf/Z"/>
+                <div class="controles" id="control2"><div class="joys" id="item2"></div></div>
+        </div>
+    </section>
+    <script>function exM(vas) {
+        var exm = document.querySelector('.exmenu'+vas); exm.classList.toggle('active');
+        var nav = document.querySelector('.exnav'+vas); nav.classList.toggle('active');
+    }
+    </script>
+    <script>
+    var mv = false;var mvi = false;
+    var info = {servidor:"http://localhost:3000",robo:""}
+    var data = {ML:0,MR:0,VX:0,VY:0,ME:0,MD:0}
+    function conec(){
+        info.servidor = document.getElementById('SER').value
+        info.robo = document.getElementById('IDM').value
+        const ws = io.connect(info.servidor)
+        ws.send(info.robo)
+        ws.on(info.robo+'R',(Rdata)=>{
+            const img = document.getElementById('image')
+            document.getElementById('robot').innerHTML = "Conectado em:<p style='color: rgb(0, 255, 136);'>"+JSON.parse(Rdata).id+"</p>"
+            document.querySelector('.exmenu').style.background = "rgb(0, 255, 136)"
+            img.src = `data:image/jpeg;base64,${JSON.parse(Rdata).img}`
+            ws.emit(info.robo+"C",JSON.stringify({data}))
+    })
+    }
+    function joys(e,size,offset,dragItem,vX,vY,rx,ry,info,num){
+        if(e.type == 'touchmove'){
+        x = (e.originalEvent.touches[0].pageX - offset.left)-size;
+        if(x >= size){x = size};if(x <= -size){x = -size}
+        y = (e.originalEvent.touches[0].pageY - offset.top)-size;
+        if(y >= size){y = size};if(y <= -size){y = -size}
+        try{dragItem.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";}catch{}
+        if(num == 1){
+            if(x > 0){info.ME = (x/size*100)};if(x < 0){info.MD = ((x/size*100)*-1)}
+            if(y > 0){info.MD = ((y/size*100)*-1);info.ME = ((y/size*100)*-1)}
+            if(y < 0){info.MD = ((y/size*100)*-1);info.ME = ((y/size*100)*-1)}
+        }
+        if(num == 2){info.ML = (x/size*100);info.MR = ((y/size*50)*-1)+50}
+    }
+        if(e.type == 'mousedown'){mv = true}
+        if(e.type == 'mousemove' && mv == true){
+            x = (e.pageX - offset.left)-size;
+            if(x >= size){x = size};if(x <= -size){x = -size}
+            y = (e.pageY - offset.top)-size;
+            if(y >= size){y = size};if(y <= -size){y = -size}
+            try{dragItem.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";}catch{}
+            if(num == 1){
+            if(x > 0){info.ME = (x/size*100)};if(x < 0){info.MD = ((x/size*100)*-1)}
+            if(y > 0){info.MD = ((y/size*100)*-1);info.ME = ((y/size*100)*-1)}
+            if(y < 0){info.MD = ((y/size*100)*-1);info.ME = ((y/size*100)*-1)}
+            }
+            if(num == 2){info.ML = (x/size*100);info.MR = ((y/size*100)*-1)+50}
+            }
+        if(e.type == 'touchend'){
+            if(rx == true){x = vX};if(ry == true){y = vY};
+            if(num == 1){info.ME = x;info.MD = x}
+            if(num == 2){info.ML = x;info.MR = y}
+            try{dragItem.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";}catch{}}
+        if(e.type == 'mouseup'){
+            mv = false;if(rx == true){x = vX};if(ry == true){y = vY};
+            if(num == 1){info.ME = x;info.MD = x}
+            if(num == 2){info.ML = x;info.MR = y}
+            try{dragItem.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";}catch{}}
+    }
+    $('#control1').live('touchmove touchend mousedown mouseup mousemove', function(e) {
+    var offset = $(this).offset();
+    const size = 100/2;
+    const vX = 0;const vY = 0;
+    rx = true;ry = false;
+    var dragItem = document.querySelector("#item1");
+    joys(e,size,offset,dragItem,vX,vY,rx,ry,data,2)
+    console.log(data.ML,data.MR)
+    });
+    $('#control2').live('touchmove touchend mousedown mouseup mousemove', function(e) {
+    var offset = $(this).offset();
+    const size = 100/2;
+    const vX = 0;const vY = 0;
+    rx = true;ry = true;
+    var dragItem = document.querySelector("#item2");
+    joys(e,size,offset,dragItem,vX,vY,rx,ry,data,1)
+    });
+    $('#image').live('touchmove touchend mousedown mouseup mousemove', function(e) {
+    var offset = $(this).offset();
+    const size = 100/2;
+    if(e.type == 'touchmove'){
+    x = (e.originalEvent.touches[0].pageX - offset.left)-size;
+    if(x >= size){x = size};if(x <= -size){x = -size}
+    y = (e.originalEvent.touches[0].pageY - offset.top)-size;
+    if(y >= size){y = size};if(y <= -size){y = -size}
+    data.VX = (x/size*90)+90;data.VY = (y/size*90)+90
+    }
+    if(e.type == 'mousedown'){mvi = true}
+    if(e.type == 'mousemove' && mvi == true){
+        x = (e.pageX - offset.left)-size;
+        if(x >= size){x = size};if(x <= -size){x = -size}
+        y = (e.pageY - offset.top)-size;
+        if(y >= size){y = size};if(y <= -size){y = -size}
+        data.VX = (x/size*90)+90;data.VY = (y/size*90)+90
+        }
+    if(e.type == 'mouseup'){mvi = false;}
+    });
+    </script>
+</body>
+</html>

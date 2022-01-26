@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css';
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins',sans-serif;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+html,body{overflow-x: hidden;animation: bak 20s infinite;}
+section{width: 100%;min-height: 100vh;}
+.joys{width: 70px;height: 70px;background-color: #0096aa;border: 10px outset #2F4F4F;border-radius: 50%;touch-action: none;user-select: none;z-index: 10;}
+.joys.es{background: chocolate;}
+.joys:hover{cursor: pointer;border-width: 15px;box-shadow: 0 2px 10px cyan;}
+.controles{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: outset 5px rgb(0, 44, 71);
+    box-shadow: 0 2px 20px rgb(0, 18, 29);
+    touch-action: none;
+    background: rgb(0, 18, 29);
+}
+.expage{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1;
+    justify-content: space-around;
+    align-items: center;
+}
+.expage .exbg{position: absolute;top: 0;right: 60px;height: 100%;}
+.expage .exconteudo{position: relative;max-width: 700px;z-index: 1;}
+.expage .exconteudo h2{color: #fff;font-size: 3em;font-weight: 700;line-height: 1.1em;}
+.expage .exconteudo p{color: #fff;font-size: 1.1em;margin: 20px 0 10px;}
+.btc{
+    color: #fff;
+    background:#9b0022;
+    font-size: 1em;
+    margin: 20px 0;
+    font-weight:500;
+    padding: 10px 30px;
+    display: inline-block;
+    text-decoration: none;
+    transition: .6s;
+}
+.btc:hover{background:rgb(0, 255, 136);border-radius: 10px;}
+.exmimg1{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: url(setting.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:30px;
+}
+.exmenu{
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    background-size:30px;
+    z-index: 12;
+    transition: .2s;
+}
+.exmenu:hover{border-radius: 50%;}
+.exmenu.active{transform: rotateZ(90deg);}
+.exnav.active{bottom: 0;}
+.exnav{position: relative;}
+.exnav ul li{position: relative;list-style: none;text-align: center;}
+.exnav{
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(200, 200, 200,.5);
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:.6s;
+}
+.extext {
+    color:#0077b5;
+    font-family: 'Monument Ultrabold';
+    font-size: 1.2rem;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    border: none;
+    display: block;
+    border-bottom: outset 5px #fff;
+    transition:.6s;
+}
+@keyframes bak{
+0%{background: #161616;}
+20%{background: #022030;}
+50%{background: #161616;}
+70%{background: #200202;}
+100%{background: #161616;}
+}
